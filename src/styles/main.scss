@@ -14,13 +14,11 @@ body, html{
 }
 
 .nav{
-  margin-left:5%;
-  margin-right: 5%;
   width: 90%;
   display: flex;
   flex-direction: row;
   align-content: space-between;
-  color: #ffffff;
+  //color: #ffffff;
   .logo{
     color: #ffffff;
     margin: auto 5px auto 15px;
@@ -90,6 +88,14 @@ body, html{
 
 .navbar-nav li a{
   color: white;
+}
+
+.header-tabs .nav-link {
+  //padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+.nav {
+  margin-bottom: -1.5rem !important;
 }
 
 .curved-btn{
@@ -224,8 +230,10 @@ footer{
 
 
 //set up loader css
-$primary-color: #ffffff;
+$primary-color: #2c83ff;
 @import '~loaders.css/src/animations/ball-pulse.scss';
+@import '~loaders.css/src/animations/ball-spin-fade-loader.scss';
+
 .loader-hidden {
   display: none;
 }
@@ -244,3 +252,16 @@ $primary-color: #ffffff;
   }
 }
 
+.nav-link{
+  cursor: pointer;
+}
+
+.a:hover .active {
+  //border-color: #e9ecef #e9ecef #dee2e6;
+  color: #1657af;
+}
+
+
+.fe-edit, .fe-trash-2{
+  cursor: pointer;
+}

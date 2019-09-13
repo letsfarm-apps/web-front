@@ -1,10 +1,11 @@
 import axios from 'axios';
 import types from '../types';
-const  {login, sign_up}  = types;
-const {LOGGING_IN, LOG_IN_ERROR, LOG_IN_SUCCESS} = login;
-const {SIGNING_UP, SIGN_UP_ERROR, SIGN_UP_SUCCESS} = sign_up;
-// require('dotenv').config();
-
+const  {login:
+    {LOGGING_IN, LOG_IN_ERROR, LOG_IN_SUCCESS}
+    ,
+    sign_up:
+        {SIGNING_UP, SIGN_UP_ERROR, SIGN_UP_SUCCESS}
+}  = types;
 
 const {REACT_APP_API_URL} = process.env;
 
@@ -16,7 +17,7 @@ const action=(type:string,payload:any)=>{
 };
 
 const loginAction = (loginData:Object)=>async (dispatch:any)=>{
-    dispatch(action(login.LOGGING_IN, true));
+    dispatch(action(LOGGING_IN, true));
     return await axios.post(`${REACT_APP_API_URL}/user/login/`,loginData).then((response)=>{
         dispatch(action(LOGGING_IN, false));
         const {token } = response.data;
