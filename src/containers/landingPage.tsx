@@ -27,7 +27,7 @@ class LandingPage extends Component<any,any>{
                             <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Platform</a>
+                            <a className="nav-link" href={Routes.diseases}>Platform</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="#">About us</a>
