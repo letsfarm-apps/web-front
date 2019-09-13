@@ -238,5 +238,4 @@ const DiseaseForm:React.FunctionComponent<FormTypes> =(
 );
 };
 
-
 export default DiseaseForm;

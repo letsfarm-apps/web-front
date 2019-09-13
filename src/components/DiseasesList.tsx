@@ -1,12 +1,17 @@
 import React from 'react';
+import DeleteModal from "./commons/DeleteModal";
 let Loader = require('react-loaders').Loader;
 
 interface disease {
     disease: any,
+    deleting: boolean
+    deleteDisease: any
 }
 
 const Disease:React.FunctionComponent<disease>=({
-    disease
+    disease,
+    deleting,
+    deleteDisease
 })=>{
 
     return (
@@ -27,7 +32,7 @@ const Disease:React.FunctionComponent<disease>=({
                         </div>
                         <div className="col-auto">
                             <span className="fe fe-edit mr-4"/>
-                            <span className="fe fe-trash-2 mr-4" /*onClick={()=>deleteDisease(disease.id)}*//>
+                            <DeleteModal deleting={deleting} disease={disease} deleteDisease={deleteDisease}/>
                         </div>
 
                     </div>
@@ -42,17 +47,21 @@ const Disease:React.FunctionComponent<disease>=({
 interface DiseasesListType {
     diseases: Array<object>
     loading: boolean
+    deleting: boolean
+    deleteDisease: any
 }
 
 const DiseasesList:React.FunctionComponent<DiseasesListType> = ({
     diseases,
-    loading
+    loading,
+    deleting,
+    deleteDisease
 })=>{
     return (
         <>
             {!loading?
                 diseases.map((disease,index)=>(
-                    <Disease disease={disease} key={`${index}`}/>
+                    <Disease deleteDisease={deleteDisease} disease={disease} deleting={deleting} key={`${index}`}/>
                 ))
             :
                 <div className="col-12" style={{display:'flex', marginTop:'10%', marginLeft:'35%'}}>

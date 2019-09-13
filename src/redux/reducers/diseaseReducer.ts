@@ -10,7 +10,10 @@ const {diseases :{
 disease:{
     GET_DISEASE_SUCCESS,
     GET_DISEASE_LOADING,
-    GET_DISEASE_FAIL
+    GET_DISEASE_FAIL,
+    DELETE_DISEASE_SUCCESS,
+    DELETE_DISEASE_LOADING,
+    DELETE_DISEASE_FAIL
 }
 }  = types;
 
@@ -24,7 +27,10 @@ const initialState ={
     fetchLoading: false,
     disease:{},
     diseaseFetching: false,
-    diseaseFetchError: ""
+    diseaseFetchError: "",
+    deleted:false,
+    deleting:false,
+    deleteError:""
 };
 
 interface ActionType {
@@ -88,6 +94,23 @@ const diseaseReducer=(state=initialState,action:ActionType) =>{
                 diseaseFetching: action.payload
             };
 
+        case DELETE_DISEASE_SUCCESS:
+            return {
+                ...state,
+                deleted: action.payload
+            };
+
+        case DELETE_DISEASE_FAIL:
+            return {
+                ...state,
+                deleteError: action.payload
+            };
+
+        case DELETE_DISEASE_LOADING:
+            return {
+                ...state,
+                deleting: action.payload
+            };
         default:
             return state;
     }

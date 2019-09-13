@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import LeftMenu from "../components/LeftMenu";
 import DiseaseForm from "../components/DiseaseForm";
-
 import {connect} from "react-redux";
-import {fetchDiseases, postDisease} from "../redux/actions/diseases";
+import {fetchDiseases, postDisease, deleteDisease} from "../redux/actions/diseases";
 import {toast} from "react-toastify";
 import DiseasesList from "../components/DiseasesList";
 
@@ -26,6 +25,22 @@ class Diseases extends Component<any,any> {
 
     changeSection=(section: number)=>{
         this.setState({section});
+    };
+
+    deleteDisease=async (diseaseId:any)=>{
+        const {deleteDisease, fetchDiseases} = this.props;
+        await deleteDisease(diseaseId);
+        const {deleted, deleteError} = this.props;
+        if(deleteError){
+            toast.error('something went wrong, disease not deleted', {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }else if(deleted){
+            toast.success('disease deleted', {
+                position: toast.POSITION.TOP_CENTER
+            });
+        }
+        await fetchDiseases();// can be improved by making delete
     };
 
     onEditorChange=(evt:any, name:string)=> {
@@ -92,7 +107,7 @@ class Diseases extends Component<any,any> {
             symptoms,
             treatment
         }= this.state;
-        const {isPosting, isFetching, diseases} = this.props;
+        const {isPosting, isFetching, diseases, deleting} = this.props;
         return (
             <>
             <LeftMenu/>
@@ -141,6 +156,8 @@ class Diseases extends Component<any,any> {
                             <DiseasesList
                                 loading={isFetching}
                                 diseases={diseases}
+                                deleting={deleting}
+                                deleteDisease={this.deleteDisease}
                             />
                                 :
                             <DiseaseForm
@@ -174,7 +191,10 @@ const mapStateToProps = (state:any) =>({
     postError: state.diseases.postError,
     isFetching: state.diseases.isFetching,
     fetchError: state.diseases.fetchError,
-    diseases: state.diseases.diseases
+    diseases: state.diseases.diseases,
+    deleting: state.diseases.deleting,
+    deleted: state.diseases.deleted,
+    deleteError: state.diseases.deleteError
 });
 
-export default connect(mapStateToProps, {postDisease, fetchDiseases})(Diseases);
+export default connect(mapStateToProps, {postDisease, fetchDiseases, deleteDisease})(Diseases);

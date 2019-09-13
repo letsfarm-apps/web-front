@@ -11,7 +11,10 @@ const {diseases :{
     disease:{
     GET_DISEASE_FAIL,
     GET_DISEASE_LOADING,
-    GET_DISEASE_SUCCESS
+    GET_DISEASE_SUCCESS,
+    DELETE_DISEASE_FAIL,
+    DELETE_DISEASE_LOADING,
+    DELETE_DISEASE_SUCCESS
 }
 
 }  = types;
@@ -71,8 +74,22 @@ const fetchDiseaseDetails= (id:number)=> async (dispatch:any)=>{
     })
 };
 
+const deleteDisease = (id:number) => async (dispatch:any)=>{
+    dispatch(dispatchedInfo(DELETE_DISEASE_LOADING, true));
+    await axios.delete(`${REACT_APP_API_URL}/disease/${id}`
+    ).then((response)=>{
+        dispatch(dispatchedInfo(DELETE_DISEASE_SUCCESS, true));
+        dispatch(dispatchedInfo(DELETE_DISEASE_LOADING, false));
+    }).catch((error)=>{
+        dispatch(dispatchedInfo(DELETE_DISEASE_FAIL, error.response));
+        dispatch(dispatchedInfo(DELETE_DISEASE_LOADING, false));
+    })
+};
+
+
 export {
     postDisease,
     fetchDiseases,
-    fetchDiseaseDetails
+    fetchDiseaseDetails,
+    deleteDisease
 }
